@@ -133,8 +133,8 @@
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField1" max="32767" attributes="0"/>
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="0" pref="334" max="32767" attributes="0"/>
-                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnLogin" pref="334" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -166,7 +166,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jTextField2" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="btnLogin" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace pref="115" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -205,7 +205,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="80" green="80" red="80" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukkan username"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -221,10 +220,9 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="80" green="80" red="80" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukkan password"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="de" red="a9" type="rgb"/>
@@ -237,6 +235,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Login"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLoginMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
