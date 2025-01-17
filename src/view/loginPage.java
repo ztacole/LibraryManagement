@@ -44,9 +44,11 @@ public class loginPage extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(169, 222, 249));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("24Library is a modern desktop application for managing");
 
+        jLabel7.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("library book loans quickly, efficiently and in an organized manner.");
 
@@ -87,20 +89,23 @@ public class loginPage extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(169, 222, 249));
         jLabel1.setText("24Library");
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Heiti TC", 1, 18)); // NOI18N
         jLabel2.setText("L O G I N");
 
+        jLabel3.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jLabel3.setText("Username");
 
         jTextField1.setForeground(new java.awt.Color(128, 128, 128));
         jTextField1.setText("Masukkan username");
 
+        jLabel4.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jLabel4.setText("Password");
 
         jTextField2.setForeground(new java.awt.Color(128, 128, 128));
         jTextField2.setText("Masukkan password");
 
         jButton1.setBackground(new java.awt.Color(169, 222, 249));
+        jButton1.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Login");
 
@@ -143,7 +148,7 @@ public class loginPage extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
