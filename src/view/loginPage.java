@@ -4,6 +4,19 @@
  */
 package view;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;   
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
+import koneksi.koneksi;
+
 /**
  *
  * @author anandakeiza
@@ -16,6 +29,20 @@ public class loginPage extends javax.swing.JFrame {
     public loginPage() {
         initComponents();
     }
+    
+    public void cekLogin(){
+    
+        Connection kon = koneksi.getKoneksi();
+        try{
+            Statement st = kon.createStatement();
+            String email = emailAddres.getText();
+            String password = password.getText();
+            
+            String sql = "SELECT * FROM petugas WHERE email = "+ emailAddres.
+        
+    }   catch (SQLException ex) {
+            Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,9 +61,9 @@ public class loginPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        emailAddres = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,14 +120,14 @@ public class loginPage extends javax.swing.JFrame {
         jLabel2.setText("L O G I N");
 
         jLabel3.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
-        jLabel3.setText("Username");
+        jLabel3.setText("Email");
 
-        jTextField1.setForeground(new java.awt.Color(128, 128, 128));
+        emailAddres.setForeground(new java.awt.Color(128, 128, 128));
 
         jLabel4.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
         jLabel4.setText("Password");
 
-        jTextField2.setForeground(new java.awt.Color(128, 128, 128));
+        password.setForeground(new java.awt.Color(128, 128, 128));
 
         btnLogin.setBackground(new java.awt.Color(169, 222, 249));
         btnLogin.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
@@ -109,6 +136,11 @@ public class loginPage extends javax.swing.JFrame {
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
+            }
+        });
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -122,9 +154,9 @@ public class loginPage extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1)
+                            .addComponent(emailAddres)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2)
+                            .addComponent(password)
                             .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(153, 153, 153)
@@ -144,11 +176,11 @@ public class loginPage extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailAddres, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(115, Short.MAX_VALUE))
@@ -175,13 +207,18 @@ public class loginPage extends javax.swing.JFrame {
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
         System.out.println("Login btn clicked!");
-        String email, password;
+
     }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -207,7 +244,7 @@ public class loginPage extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run(){
                 new loginPage().setVisible(true);
             }
         });
@@ -215,6 +252,7 @@ public class loginPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private static javax.swing.JTextField emailAddres;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -224,7 +262,6 @@ public class loginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    public static javax.swing.JTextField password;
     // End of variables declaration//GEN-END:variables
 }

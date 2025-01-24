@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/view/Member.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/Main/loginpage.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/koneksi/koneksi.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/view/dataPeminjaman.java</file>
             <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/library.java</file>
-            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/view/tampilanAwal.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/model/buku.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/model/anggota.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/model/peminjaman.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/view/loginPage.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/model/petugas.java</file>
+            <file>file:/Users/anandakeiza/Desktop/NetBeansProjects/24Library/LibraryManagement/src/view/MenuUtama.java</file>
         </group>
     </open-files>
 </project-private>
