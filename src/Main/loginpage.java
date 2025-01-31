@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static koneksi.koneksi.getKoneksi;
-import model.anggota;
-import model.petugas;
+import model.Anggota;
+import model.Petugas;
 
 /**
  *
@@ -24,8 +24,8 @@ public class loginpage {
     Connection kon;
     PreparedStatement ps;
     ResultSet rs;
-    ArrayList<petugas> listPetugas;
-    anggota Anggota;
+    ArrayList<Petugas> listPetugas;
+    Anggota Anggota;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
     
@@ -34,7 +34,7 @@ public class loginpage {
     
     }
     
-    public ArrayList<petugas> getListPetugas(){
+    public ArrayList<Petugas> getListPetugas(){
         try{
             listPetugas = new ArrayList<>();
             ps = kon.prepareStatement("SELECT * FROM Guru", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
