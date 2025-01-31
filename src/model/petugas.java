@@ -10,9 +10,7 @@ package model;
  */
 public class petugas {
     private int id;
-    private String nama;
-    private String username;
-    private String password;
+    private String nama, username, password;
 
     public int getId() {
         return id;

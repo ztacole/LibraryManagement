@@ -11,12 +11,9 @@ import java.sql.Date;
  * @author anandakeiza
  */
 public class buku {
-    private int id;
-     private String judul;
-    private String penulis;
-    private Date tanggal_terbit;
-    private String penerbit;
-    private int stok;
+    private int id, stok;
+    private String judul, penulis, penerbit;
+    private Date tanggalTerbit;
 
     public int getId() {
         return id;
@@ -42,12 +39,12 @@ public class buku {
         this.penulis = penulis;
     }
 
-    public Date getTanggal_terbit() {
-        return tanggal_terbit;
+    public Date getTanggalTerbit() {
+        return tanggalTerbit;
     }
 
-    public void setTanggal_terbit(Date tanggal_terbit) {
-        this.tanggal_terbit = tanggal_terbit;
+    public void setTanggalTerbit(Date tanggalTerbit) {
+        this.tanggalTerbit = tanggalTerbit;
     }
 
     public String getPenerbit() {

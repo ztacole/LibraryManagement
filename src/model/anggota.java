@@ -11,10 +11,7 @@ package model;
 public class anggota {
     
     private int id;
-    private String nama;
-    private String email;
-    private String password;
-    private String nomor_telppon;
+    private String nama, email, password, nomorTelepon;
 
     public int getId() {
         return id;
@@ -48,11 +45,11 @@ public class anggota {
         this.password = password;
     }
 
-    public String getNomor_telppon() {
-        return nomor_telppon;
+    public String getNomorTelepon() {
+        return nomorTelepon;
     }
 
-    public void setNomor_telppon(String nomor_telppon) {
-        this.nomor_telppon = nomor_telppon;
+    public void setNomorTelepon(String nomorTelepon) {
+        this.nomorTelepon = nomorTelepon;
     }
 }
