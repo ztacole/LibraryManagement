@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import static koneksi.koneksi.getKoneksi;
+import static koneksi.Koneksi.getKoneksi;
 import model.Anggota;
 import model.Petugas;
 

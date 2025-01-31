@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
-import koneksi.koneksi;
+import koneksi.Koneksi;
 
 /**
  *
@@ -32,7 +32,7 @@ public class loginPage extends javax.swing.JFrame {
     
     public void cekLogin(){
     
-        Connection kon = koneksi.getKoneksi();
+        Connection kon = Koneksi.getKoneksi();
         try{
             Statement st = kon.createStatement();
             String email = emailAddres.getText();
