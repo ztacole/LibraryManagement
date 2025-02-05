@@ -15,35 +15,22 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
-import koneksi.Koneksi;
+import koneksi.koneksi;
 
 /**
  *
  * @author anandakeiza
  */
-public class loginPage extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame {
 
     /**
      * Creates new form loginPage
      */
-    public loginPage() {
+    public LoginPage() {
         initComponents();
     }
     
-    public void cekLogin(){
     
-        Connection kon = Koneksi.getKoneksi();
-        try{
-            Statement st = kon.createStatement();
-            String email = emailAddres.getText();
-            String password = password.getText();
-            
-            String sql = "SELECT * FROM petugas WHERE email = "+ emailAddres.
-        
-    }   catch (SQLException ex) {
-            Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -212,7 +199,7 @@ public class loginPage extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -245,7 +232,7 @@ public class loginPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new loginPage().setVisible(true);
+                new LoginPage().setVisible(true);
             }
         });
     }
