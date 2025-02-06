@@ -4,6 +4,9 @@
  */
 package view;
 
+import data.dao.AnggotaDAO;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anandakeiza
@@ -13,8 +16,11 @@ public class DataAnggota extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    AnggotaDAO dao;
+    
     public DataAnggota() {
         initComponents();
+        dao = new AnggotaDAO();
     }
 
     /**
@@ -29,9 +35,9 @@ public class DataAnggota extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        menuDataAnggota = new javax.swing.JLabel();
+        menuDataBuku = new javax.swing.JLabel();
+        menuPeminjamanBuku = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -43,11 +49,19 @@ public class DataAnggota extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAnggota = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        tbNama = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 245, 250));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -58,14 +72,29 @@ public class DataAnggota extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(169, 222, 249));
         jLabel2.setText("24Library");
 
-        jLabel4.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
-        jLabel4.setText("Data Anggota");
+        menuDataAnggota.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
+        menuDataAnggota.setText("Data Anggota");
+        menuDataAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuDataAnggotaMouseClicked(evt);
+            }
+        });
 
-        jLabel5.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
-        jLabel5.setText("Data buku");
+        menuDataBuku.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
+        menuDataBuku.setText("Data Buku");
+        menuDataBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuDataBukuMouseClicked(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
-        jLabel6.setText("Peminjaman buku");
+        menuPeminjamanBuku.setFont(new java.awt.Font("Heiti TC", 0, 13)); // NOI18N
+        menuPeminjamanBuku.setText("Peminjaman Buku");
+        menuPeminjamanBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuPeminjamanBukuMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,12 +103,12 @@ public class DataAnggota extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
+                    .addComponent(menuDataAnggota)
+                    .addComponent(menuDataBuku)
+                    .addComponent(menuPeminjamanBuku)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,12 +117,12 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel4)
+                .addGap(32, 32, 32)
+                .addComponent(menuDataAnggota)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(menuDataBuku)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(menuPeminjamanBuku)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -176,7 +205,7 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAnggota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -187,10 +216,25 @@ public class DataAnggota extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAnggota);
 
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel13.setText("Data Anggota");
+
+        jLabel14.setText("Cari Anggota");
+
+        jLabel15.setText("Nama :");
+
+        tbNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbNamaActionPerformed(evt);
+            }
+        });
+        tbNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbNamaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,7 +246,12 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel14)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(29, 29, 29)
+                        .addComponent(tbNama)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -213,17 +262,52 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(tbNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fillTable(){
+        String nama = tbNama.getText();
+        tblAnggota.setModel(dao.getModel(nama));
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tbNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbNamaActionPerformed
+        fillTable();
+    }//GEN-LAST:event_tbNamaActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        fillTable();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tbNamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbNamaKeyTyped
+        fillTable();
+    }//GEN-LAST:event_tbNamaKeyTyped
+
+    private void menuDataAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDataAnggotaMouseClicked
+        new DataAnggota().setVisible(true);
+    }//GEN-LAST:event_menuDataAnggotaMouseClicked
+
+    private void menuDataBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDataBukuMouseClicked
+        new DataBuku().setVisible(true);
+    }//GEN-LAST:event_menuDataBukuMouseClicked
+
+    private void menuPeminjamanBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanBukuMouseClicked
+        new DataPeminjaman().setVisible(true);
+    }//GEN-LAST:event_menuPeminjamanBukuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -271,17 +355,20 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel menuDataAnggota;
+    private javax.swing.JLabel menuDataBuku;
+    private javax.swing.JLabel menuPeminjamanBuku;
+    private javax.swing.JTextField tbNama;
+    private javax.swing.JTable tblAnggota;
     // End of variables declaration//GEN-END:variables
 }

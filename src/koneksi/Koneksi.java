@@ -12,17 +12,17 @@ import java.sql.SQLException;
  *
  * @author anandakeiza
  */
-public class koneksi {
+public class Koneksi {
     private static Connection connection = null;
     public static Connection getKoneksi() {
         if (connection != null) {
             return connection;
         } else {
-            String dbUrl = "jdbc:mysql://localhost:3306/datasiswa";
+            String dbUrl = "jdbc:mysql://localhost:3306/library24";
             String username = "root"; // Ganti dengan username MySQL Anda
             String password = ""; // Ganti dengan password MySQL Anda
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection(dbUrl, username, password);
                 System.out.println("Koneksi Sukses");
             } catch (ClassNotFoundException | SQLException e) {

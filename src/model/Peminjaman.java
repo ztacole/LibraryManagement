@@ -12,8 +12,70 @@ import java.sql.Date;
  * @author ahmad
  */
 public class Peminjaman {
-    private int id, idAnggota, idPetugas, denda;
+    private int id, idAnggota, idPetugas;
     private Date tanggalPeminjaman, tanggalPengembalian;
+    
+    //Anggota
+    private String namaAnggota, emailAnggota, passwordAnggota, nomorTeleponAnggota;
+    
+    //Petugas
+    private String namaPetugas, username, passwordPetugas;
+
+    public String getNamaAnggota() {
+        return namaAnggota;
+    }
+
+    public void setNamaAnggota(String namaAnggota) {
+        this.namaAnggota = namaAnggota;
+    }
+
+    public String getEmailAnggota() {
+        return emailAnggota;
+    }
+
+    public void setEmailAnggota(String emailAnggota) {
+        this.emailAnggota = emailAnggota;
+    }
+
+    public String getPasswordAnggota() {
+        return passwordAnggota;
+    }
+
+    public void setPasswordAnggota(String passwordAnggota) {
+        this.passwordAnggota = passwordAnggota;
+    }
+
+    public String getNomorTeleponAnggota() {
+        return nomorTeleponAnggota;
+    }
+
+    public void setNomorTeleponAnggota(String nomorTeleponAnggota) {
+        this.nomorTeleponAnggota = nomorTeleponAnggota;
+    }
+
+    public String getNamaPetugas() {
+        return namaPetugas;
+    }
+
+    public void setNamaPetugas(String namaPetugas) {
+        this.namaPetugas = namaPetugas;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordPetugas() {
+        return passwordPetugas;
+    }
+
+    public void setPasswordPetugas(String passwordPetugas) {
+        this.passwordPetugas = passwordPetugas;
+    }
 
     public int getId() {
         return id;
@@ -37,14 +99,6 @@ public class Peminjaman {
 
     public void setIdPetugas(int idPetugas) {
         this.idPetugas = idPetugas;
-    }
-
-    public int getDenda() {
-        return denda;
-    }
-
-    public void setDenda(int denda) {
-        this.denda = denda;
     }
 
     public Date getTanggalPeminjaman() {

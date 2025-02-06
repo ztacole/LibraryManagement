@@ -34,6 +34,8 @@ public class PetugasDAO {
             ps = conn.prepareStatement(query);
             ps.setString(1, username);
             ps.setString(2, password);
+            rs = ps.executeQuery();
+            rs.beforeFirst();
             if (rs.next()){
                 petugas.setId(rs.getInt("id"));
                 petugas.setNama(rs.getString("nama"));
