@@ -4,14 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/data/dao/BukuDAO.java</file>
-            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Anggota.java</file>
-            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/loginPage.java</file>
-            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Buku.java</file>
-            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Petugas.java</file>
-            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/dataPeminjaman.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/core/Util.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/data/dao/AnggotaDAO.java</file>
             <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/DetailPeminjaman.java</file>
             <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Peminjaman.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/library.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/LoginPage.java</file>
             <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/koneksi/Koneksi.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/data/dao/PetugasDAO.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Anggota.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/data/dao/PeminjamanDAO.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Buku.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/model/Petugas.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/LookView.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/DataAnggota.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/DataBuku.java</file>
+            <file>file:/C:/Users/ahmad/OneDrive/Documents/NetBeansProjects/LibraryManagement/src/view/DataPeminjaman.java</file>
         </group>
     </open-files>
 </project-private>

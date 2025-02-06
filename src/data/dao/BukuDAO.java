@@ -149,4 +149,18 @@ public class BukuDAO {
         }
     }
 
+    public boolean deleteBuku(int ID) {
+        String query = "DELETE from buku where id = ?";
+        
+        try (PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setInt(1, ID);
+            
+            int result = ps.executeUpdate();
+            
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(BukuDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
