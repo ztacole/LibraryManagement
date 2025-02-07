@@ -108,5 +108,6 @@ public class AnggotaDAO {
     } catch (SQLException e) {
         System.out.println("Error: " + e);
     }
+     }
 }
 
