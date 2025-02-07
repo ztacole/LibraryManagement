@@ -42,7 +42,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnLookupAnggota = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -141,10 +141,10 @@ public class DataPeminjaman extends javax.swing.JFrame {
 
         jLabel8.setText("Id Anggota :");
 
-        jButton1.setText("LookUp");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLookupAnggota.setText("LookUp");
+        btnLookupAnggota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLookupAnggotaActionPerformed(evt);
             }
         });
 
@@ -200,7 +200,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
                         .addGap(76, 76, 76)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLookupAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel7))
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -237,7 +237,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jButton1)
+                        .addComponent(btnLookupAnggota)
                         .addComponent(jLabel4)
                         .addComponent(jButton5)))
                 .addGap(18, 18, 18)
@@ -352,9 +352,9 @@ public class DataPeminjaman extends javax.swing.JFrame {
         tblPeminjaman.setModel(dao.getModel(namaPeminjam, namaPetugas));
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLookupAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookupAnggotaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLookupAnggotaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -426,7 +426,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLookupAnggota;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
