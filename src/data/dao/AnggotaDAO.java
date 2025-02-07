@@ -113,7 +113,7 @@ public class AnggotaDAO {
     }
     
     public boolean tambahAnggota(Anggota anggota) {
-        String query = "INSERT INTO anggota ( Nama, Email, Password, NomorTelepon) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO anggota ( Nama, Email, Password, NomorTelepon) VALUES (?, ?,  ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, anggota.getNama());
