@@ -15,7 +15,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
     /**
      * Creates new form dataPeminjaman
      */
-    
+    private int idPeminjaman = -1;
     PeminjamanDAO dao;
     
     public DataPeminjaman() {
@@ -226,6 +226,11 @@ public class DataPeminjaman extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPeminjamanMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPeminjaman);
 
         jLabel14.setText("Cari Peminjaman");
@@ -331,6 +336,11 @@ public class DataPeminjaman extends javax.swing.JFrame {
     private void menuPeminjamanBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanBukuMouseClicked
         new DataPeminjaman().setVisible(true);
     }//GEN-LAST:event_menuPeminjamanBukuMouseClicked
+
+    private void tblPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeminjamanMouseClicked
+        idPeminjaman = Integer.parseInt(tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 0).toString());
+        
+    }//GEN-LAST:event_tblPeminjamanMouseClicked
 
     /**
      * @param args the command line arguments
