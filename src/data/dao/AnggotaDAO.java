@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.Koneksi;
 import model.Anggota;
@@ -97,4 +98,15 @@ public class AnggotaDAO {
         String[] columnName = {"ID", "Nama", "Email", "Password", "Nomor Telepon"};
         return new DefaultTableModel(dataTabel, columnName);
     }
+    
+     public void hapusData(int id) {
+    String qry = "DELETE FROM anggota WHERE id = ?";
+    try (PreparedStatement ps = conn.prepareStatement(qry)) { 
+        ps.setInt(1, id);
+        ps.executeUpdate();
+        System.out.println("Data Anggota Terhapus");
+    } catch (SQLException e) {
+        System.out.println("Error: " + e);
+    }
 }
+
