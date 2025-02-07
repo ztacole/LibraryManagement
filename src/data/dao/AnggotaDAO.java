@@ -128,6 +128,4 @@ public class AnggotaDAO {
             return false;
         }
     }
-    }
-
 }
