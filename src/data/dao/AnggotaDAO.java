@@ -109,5 +109,17 @@ public class AnggotaDAO {
         System.out.println("Error: " + e);
     }
      }
+     
+      public void editAnggota(String nama, String email, String password, String  nomorTelepon){
+        String qry = "update anggota set nama=?, email=?, password=?, nomorTelepon=? where id=?";
+       try (PreparedStatement ps = conn.prepareStatement(qry)) { 
+            ps.setString(1, nama);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4,  nomorTelepon);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("DATA SISWA TIDAK DITEMUKAN");
+        }
+    }
 }
-
