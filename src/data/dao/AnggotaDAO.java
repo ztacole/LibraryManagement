@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.Koneksi;
@@ -21,6 +22,7 @@ import model.Anggota;
  * @author ahmad
  */
 public class AnggotaDAO {
+
     Connection conn;
 
     public AnggotaDAO() {
@@ -98,27 +100,44 @@ public class AnggotaDAO {
         String[] columnName = {"ID", "Nama", "Email", "Password", "Nomor Telepon"};
         return new DefaultTableModel(dataTabel, columnName);
     }
-    
-     public void hapusData(int id) {
-    String qry = "DELETE FROM anggota WHERE id = ?";
-    try (PreparedStatement ps = conn.prepareStatement(qry)) { 
-        ps.setInt(1, id);
-        ps.executeUpdate();
-        System.out.println("Data Anggota Terhapus");
-    } catch (SQLException e) {
-        System.out.println("Error: " + e);
+
+    public void hapusData(int id) {
+        String qry = "DELETE FROM anggota WHERE id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(qry)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Data Anggota Terhapus");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
     }
-     }
-     
-      public void editAnggota(String nama, String email, String password, String  nomorTelepon){
+
+    public boolean tambahAnggota(Anggota anggota) {
+        String query = "INSERT INTO anggota ( Nama, Email, Password, NomorTelepon) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, anggota.getNama());
+            ps.setString(2, anggota.getEmail());
+            ps.setString(3, anggota.getPassword());
+            ps.setString(4, anggota.getNomorTelepon());
+
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AnggotaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public void editAnggota(String nama, String email, String password, String nomorTelepon) {
         String qry = "update anggota set nama=?, email=?, password=?, nomorTelepon=? where id=?";
-       try (PreparedStatement ps = conn.prepareStatement(qry)) { 
+        try (PreparedStatement ps = conn.prepareStatement(qry)) {
             ps.setString(1, nama);
             ps.setString(2, email);
             ps.setString(3, password);
-            ps.setString(4,  nomorTelepon);
+            ps.setString(4, nomorTelepon);
             ps.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("DATA SISWA TIDAK DITEMUKAN");
         }
     }

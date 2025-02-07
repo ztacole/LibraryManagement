@@ -8,14 +8,16 @@ package view;
  *
  * @author anandakeiza
  */
-public class LookView extends javax.swing.JFrame {
+public class LookView extends javax.swing.JDialog {
 
     /**
      * Creates new form LookUp
      */
-    public LookView() {
+    public LookView(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,9 +124,17 @@ public class LookView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LookView().setVisible(true);
+                LookView dialog =  new LookView(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
