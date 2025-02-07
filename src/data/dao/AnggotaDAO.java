@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.Koneksi;
@@ -21,6 +22,7 @@ import model.Anggota;
  * @author ahmad
  */
 public class AnggotaDAO {
+
     Connection conn;
 
     public AnggotaDAO() {
@@ -98,16 +100,32 @@ public class AnggotaDAO {
         String[] columnName = {"ID", "Nama", "Email", "Password", "Nomor Telepon"};
         return new DefaultTableModel(dataTabel, columnName);
     }
-    
-     public void hapusData(int id) {
-    String qry = "DELETE FROM anggota WHERE id = ?";
-    try (PreparedStatement ps = conn.prepareStatement(qry)) { 
-        ps.setInt(1, id);
-        ps.executeUpdate();
-        System.out.println("Data Anggota Terhapus");
-    } catch (SQLException e) {
-        System.out.println("Error: " + e);
-    }
-     }
-}
 
+    public void hapusData(int id) {
+        String qry = "DELETE FROM anggota WHERE id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(qry)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Data Anggota Terhapus");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
+    }
+    
+    public boolean tambahAnggota(Anggota anggota) {
+        String query = "INSERT INTO anggota ( Nama, Email, Password, NomorTelepon) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, anggota.getNama());
+            ps.setString(2, anggota.getEmail());
+            ps.setString(3, anggota.getPassword());
+            ps.setString(4, anggota.getNomorTelepon());
+
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AnggotaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+}
