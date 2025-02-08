@@ -4,7 +4,11 @@
  */
 package view;
 
+import data.dao.AnggotaDAO;
+import data.dao.BukuDAO;
+import data.dao.DetailPeminjamanDAO;
 import data.dao.PeminjamanDAO;
+import model.Peminjaman;
 
 /**
  *
@@ -16,11 +20,19 @@ public class DataPeminjaman extends javax.swing.JFrame {
      * Creates new form dataPeminjaman
      */
     private int idPeminjaman = -1;
-    PeminjamanDAO dao;
+    private PeminjamanDAO peminjamanDao;
+    private DetailPeminjamanDAO detailPeminjamanDao;
+    private AnggotaDAO anggotaDao;
+    private BukuDAO bukuDao;
+    
+    private String status = "Pinjam";
     
     public DataPeminjaman() {
         initComponents();
-        dao = new PeminjamanDAO();
+        peminjamanDao = new PeminjamanDAO();
+        detailPeminjamanDao = new DetailPeminjamanDAO();
+        anggotaDao = new AnggotaDAO();
+        bukuDao = new BukuDAO();
     }
 
     /**
@@ -340,7 +352,18 @@ public class DataPeminjaman extends javax.swing.JFrame {
     private void fillTable() {
         String namaPeminjam = tbSearchNamaPeminjam.getText();
         String namaPetugas = tbSearchNamaPetugas.getText();
-        tblPeminjaman.setModel(dao.getModel(namaPeminjam, namaPetugas));
+        tblPeminjaman.setModel(peminjamanDao.getModel(namaPeminjam, namaPetugas));
+    }
+    
+    private void fillTableDetail() {
+        btnClearBuku.setEnabled(false);
+        btnLookAnggota.setEnabled(false);
+        btnLookBuku.setEnabled(false);
+        btnPinjam.setEnabled(false);
+        if (status.equals("Selesai")) btnKembalikan.setEnabled(false);
+        tblDetail.setModel(detailPeminjamanDao.getModel(idPeminjaman));
+        Peminjaman data = peminjamanDao.findPeminjamanByID(idPeminjaman);
+        tbDataAnggota.setText(data.getNamaAnggota());
     }
     
     private void btnLookAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAnggotaActionPerformed
@@ -373,7 +396,10 @@ public class DataPeminjaman extends javax.swing.JFrame {
 
     private void tblPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeminjamanMouseClicked
         idPeminjaman = Integer.parseInt(tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 0).toString());
-        
+        Boolean tglKembali = tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 3) != null;
+        if (tglKembali) status = "Selesai";
+        else status = "Kembalikan";
+        fillTableDetail();
     }//GEN-LAST:event_tblPeminjamanMouseClicked
 
     private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
