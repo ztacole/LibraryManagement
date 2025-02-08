@@ -433,8 +433,8 @@ public class DataPeminjaman extends javax.swing.JFrame {
                 try {
                     int jumlah = Integer.parseInt(aValue.toString());
                     
-                    if (jumlah < 0) {
-                        JOptionPane.showMessageDialog(null, "Jumlah tidak boleh kurang dari 0", "Error", JOptionPane.ERROR_MESSAGE);
+                    if (jumlah < 1) {
+                        JOptionPane.showMessageDialog(null, "Jumlah tidak boleh kurang dari 1", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     else if (jumlah > buku.getStok()) {
                         JOptionPane.showMessageDialog(null, "Jumlah tidak boleh lebih dari " + buku.getStok(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -542,6 +542,8 @@ public class DataPeminjaman extends javax.swing.JFrame {
             }
         }
         
+        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        
         clearBook();
         idAnggota = -1;
         tbDataAnggota.setText("");
@@ -549,7 +551,14 @@ public class DataPeminjaman extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPinjamActionPerformed
 
     private void btnKembalikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembalikanActionPerformed
+        if (peminjamanDao.returnPeminjaman(idPeminjaman)) JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        else JOptionPane.showMessageDialog(null, "Data gagal disimpan");
         
+        idPeminjaman = -1;
+        clearBook();
+        idAnggota = -1;
+        tbDataAnggota.setText("");
+        fillTable();
     }//GEN-LAST:event_btnKembalikanActionPerformed
 
     private void clearBook() {

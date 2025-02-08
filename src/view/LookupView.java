@@ -113,6 +113,11 @@ public class LookupView extends javax.swing.JDialog {
         }
         else if (lblTitle.getText().equals("Data Buku")) {
             int idBuku = Integer.parseInt(tblData.getValueAt(tblData.getSelectedRow(), 0).toString());
+            Buku buku = new BukuDAO().findBukuByID(idBuku);
+            if (buku.getStok() < 1) {
+                JOptionPane.showMessageDialog(null, "Buku ini belum tersedia");
+                return;
+            }
             if (!DataPeminjaman.setId.add(idBuku)) {
                 JOptionPane.showMessageDialog(null, "Buku ini sudah ditambahkan");
                 return;
@@ -120,7 +125,7 @@ public class LookupView extends javax.swing.JDialog {
             PinjamBuku pinjam = new PinjamBuku();
             pinjam.setIdBuku(idBuku);
             pinjam.setJumlah(1);
-            pinjam.setJudulBuku(new BukuDAO().findBukuByID(idBuku).getJudul());
+            pinjam.setJudulBuku(buku.getJudul());
             DataPeminjaman.listPinjamBuku.add(pinjam);
         }
         dispose();

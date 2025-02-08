@@ -144,4 +144,18 @@ public class PeminjamanDAO {
             return -1;
         }
     }
+    
+    public boolean returnPeminjaman(int idPeminjaman) {
+    String query = "UPDATE peminjaman SET tanggal_pengembalian = CURRENT_DATE WHERE id = ? AND tanggal_pengembalian IS NULL";
+    
+    try (PreparedStatement ps = conn.prepareStatement(query)) {
+        ps.setInt(1, idPeminjaman);
+        int affectedRows = ps.executeUpdate();
+        return affectedRows > 0; // Jika ada baris yang terupdate, berarti sukses
+    } catch (SQLException ex) {
+        Logger.getLogger(PeminjamanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        return false;
+    }
+}
+
 }
