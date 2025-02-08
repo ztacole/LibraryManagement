@@ -50,7 +50,6 @@ public class AnggotaDAO {
                     anggota.setId(rs.getInt("id"));
                     anggota.setNama(rs.getString("nama"));
                     anggota.setEmail(rs.getString("email"));
-                    anggota.setPassword(rs.getString("password"));
                     anggota.setNomorTelepon(rs.getString("nomor_telepon"));
                     listAnggota.add(anggota);
                 }
@@ -73,7 +72,6 @@ public class AnggotaDAO {
                     anggota.setId(rs.getInt("id"));
                     anggota.setNama(rs.getString("nama"));
                     anggota.setEmail(rs.getString("email"));
-                    anggota.setPassword(rs.getString("password"));
                     anggota.setNomorTelepon(rs.getString("nomor_telepon"));
                 } else {
                     anggota = null;
@@ -87,39 +85,39 @@ public class AnggotaDAO {
 
     public DefaultTableModel getModel(String nama) {
         ArrayList<Anggota> listAnggota = getAllAnggota(nama);
-        Object[][] dataTabel = new Object[listAnggota.size()][5];
+        Object[][] dataTabel = new Object[listAnggota.size()][4];
 
         for (int i = 0; i < listAnggota.size(); i++) {
             dataTabel[i][0] = listAnggota.get(i).getId();
             dataTabel[i][1] = listAnggota.get(i).getNama();
             dataTabel[i][2] = listAnggota.get(i).getEmail();
-            dataTabel[i][3] = listAnggota.get(i).getPassword();
-            dataTabel[i][4] = listAnggota.get(i).getNomorTelepon();
+            dataTabel[i][3] = listAnggota.get(i).getNomorTelepon();
         }
 
-        String[] columnName = {"ID", "Nama", "Email", "Password", "Nomor Telepon"};
+        String[] columnName = {"ID", "Nama", "Email", "Nomor Telepon"};
         return new DefaultTableModel(dataTabel, columnName);
     }
 
-    public void hapusData(int id) {
+    public boolean deleteAnggota(int id) {
         String qry = "DELETE FROM anggota WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(qry)) {
             ps.setInt(1, id);
-            ps.executeUpdate();
-            System.out.println("Data Anggota Terhapus");
+            
+            int result = ps.executeUpdate();
+            
+            return result > 0;
         } catch (SQLException e) {
-            System.out.println("Error: " + e);
+            return false;
         }
     }
 
-    public boolean tambahAnggota(Anggota anggota) {
-        String query = "INSERT INTO anggota ( Nama, Email, Password, NomorTelepon) VALUES (?, ?,  ?, ?)";
+    public boolean addAnggota(Anggota anggota) {
+        String query = "INSERT INTO anggota (nama, email, nomor_telepon) VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, anggota.getNama());
             ps.setString(2, anggota.getEmail());
-            ps.setString(3, anggota.getPassword());
-            ps.setString(4, anggota.getNomorTelepon());
+            ps.setString(3, anggota.getNomorTelepon());
 
             int result = ps.executeUpdate();
             return result > 0;
@@ -129,16 +127,19 @@ public class AnggotaDAO {
         }
     }
 
-    public void editAnggota(String nama, String email, String password, String nomorTelepon) {
-        String qry = "update anggota set nama=?, email=?, password=?, nomorTelepon=? where id=?";
+    public boolean editAnggota(Anggota anggota) {
+        String qry = "UPDATE anggota SET nama=?, email=?, nomor_telepon=? WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(qry)) {
-            ps.setString(1, nama);
-            ps.setString(2, email);
-            ps.setString(3, password);
-            ps.setString(4, nomorTelepon);
-            ps.executeUpdate();
+            ps.setString(1, anggota.getNama());
+            ps.setString(2, anggota.getEmail());
+            ps.setString(3, anggota.getNomorTelepon());
+            ps.setInt(4, anggota.getId());
+            
+            int result = ps.executeUpdate();
+            
+            return result > 0;
         } catch (SQLException e) {
-            System.out.println("DATA SISWA TIDAK DITEMUKAN");
+            return false;
         }
     }
 }

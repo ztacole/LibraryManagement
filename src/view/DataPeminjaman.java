@@ -42,27 +42,25 @@ public class DataPeminjaman extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btnLookupAnggota = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnLookAnggota = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        tblDetail = new javax.swing.JTable();
+        btnLookBuku = new javax.swing.JButton();
+        tbDataAnggota = new javax.swing.JTextField();
+        btnClearBuku = new javax.swing.JButton();
+        btnPinjam = new javax.swing.JButton();
+        btnKembalikan = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPeminjaman = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        tbNamaPeminjam = new javax.swing.JTextField();
-        tbNamaPetugas = new javax.swing.JTextField();
+        tbSearchNamaPeminjam = new javax.swing.JTextField();
+        tbSearchNamaPetugas = new javax.swing.JTextField();
+        btnClearSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -139,39 +137,21 @@ public class DataPeminjaman extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setText("Id Anggota :");
+        jLabel8.setText("Anggota :");
 
-        btnLookupAnggota.setText("LookUp");
-        btnLookupAnggota.addActionListener(new java.awt.event.ActionListener() {
+        btnLookAnggota.setText("LookUp");
+        btnLookAnggota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLookupAnggotaActionPerformed(evt);
+                btnLookAnggotaActionPerformed(evt);
             }
         });
-
-        jLabel9.setText("Id Petugas :");
-
-        jButton2.setText("LookUp");
-        jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setText("Tanggal peminjaman :");
-
-        jLabel11.setText("Tanggal pengembalian :");
-
-        jButton3.setText("Tambah");
-
-        jButton4.setText("Hapus");
 
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel13.setText("Form tambah data peminjaman");
+        jLabel13.setText("Form Manipulasi Data Peminjaman");
 
         jLabel4.setText("Buku :");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -182,9 +162,19 @@ public class DataPeminjaman extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDetail);
 
-        jButton5.setText("LookUp");
+        btnLookBuku.setText("LookUp");
+
+        tbDataAnggota.setEditable(false);
+
+        btnClearBuku.setText("Clear List Buku");
+
+        btnPinjam.setText("Pinjam");
+
+        btnKembalikan.setText("Kembalikan");
+
+        btnReset.setText("Reset");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,73 +183,59 @@ public class DataPeminjaman extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel9)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(76, 76, 76)
+                        .addComponent(btnPinjam)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnKembalikan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReset))
+                    .addComponent(jScrollPane1)
+                    .addComponent(btnClearBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnLookupAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLookAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(18, 18, 18)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                                        .addGap(253, 253, 253)
+                                        .addComponent(jLabel7))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(tbDataAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLookBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(btnLookupAnggota)
+                        .addComponent(btnLookAnggota)
+                        .addComponent(tbDataAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
-                        .addComponent(jButton5)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jButton2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(btnLookBuku))
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnClearBuku)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPinjam)
+                    .addComponent(btnKembalikan)
+                    .addComponent(btnReset))
+                .addContainerGap())
         );
 
         tblPeminjaman.setModel(new javax.swing.table.DefaultTableModel(
@@ -286,15 +262,22 @@ public class DataPeminjaman extends javax.swing.JFrame {
 
         jLabel16.setText("Nama Petugas :");
 
-        tbNamaPeminjam.addKeyListener(new java.awt.event.KeyAdapter() {
+        tbSearchNamaPeminjam.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tbNamaPeminjamKeyTyped(evt);
+                tbSearchNamaPeminjamKeyTyped(evt);
             }
         });
 
-        tbNamaPetugas.addKeyListener(new java.awt.event.KeyAdapter() {
+        tbSearchNamaPetugas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tbNamaPetugasKeyTyped(evt);
+                tbSearchNamaPetugasKeyTyped(evt);
+            }
+        });
+
+        btnClearSearch.setText("Clear Search");
+        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearSearchActionPerformed(evt);
             }
         });
 
@@ -305,68 +288,72 @@ public class DataPeminjaman extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
                             .addComponent(jLabel16)
                             .addComponent(jLabel15))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbNamaPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tbNamaPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tbSearchNamaPeminjam)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnClearSearch))
+                            .addComponent(tbSearchNamaPetugas)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(tbNamaPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(tbSearchNamaPeminjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClearSearch))
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(tbNamaPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbSearchNamaPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillTable() {
-        String namaPeminjam = tbNamaPeminjam.getText();
-        String namaPetugas = tbNamaPetugas.getText();
+        String namaPeminjam = tbSearchNamaPeminjam.getText();
+        String namaPetugas = tbSearchNamaPetugas.getText();
         tblPeminjaman.setModel(dao.getModel(namaPeminjam, namaPetugas));
     }
     
-    private void btnLookupAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookupAnggotaActionPerformed
+    private void btnLookAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAnggotaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLookupAnggotaActionPerformed
+    }//GEN-LAST:event_btnLookAnggotaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void tbNamaPeminjamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbNamaPeminjamKeyTyped
+    private void tbSearchNamaPeminjamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSearchNamaPeminjamKeyTyped
         fillTable();
-    }//GEN-LAST:event_tbNamaPeminjamKeyTyped
+    }//GEN-LAST:event_tbSearchNamaPeminjamKeyTyped
 
-    private void tbNamaPetugasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbNamaPetugasKeyTyped
+    private void tbSearchNamaPetugasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSearchNamaPetugasKeyTyped
         fillTable();
-    }//GEN-LAST:event_tbNamaPetugasKeyTyped
+    }//GEN-LAST:event_tbSearchNamaPetugasKeyTyped
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         fillTable();
@@ -388,6 +375,12 @@ public class DataPeminjaman extends javax.swing.JFrame {
         idPeminjaman = Integer.parseInt(tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 0).toString());
         
     }//GEN-LAST:event_tblPeminjamanMouseClicked
+
+    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
+        tbSearchNamaPeminjam.setText("");
+        tbSearchNamaPetugas.setText("");
+        fillTable();
+    }//GEN-LAST:event_btnClearSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,16 +419,14 @@ public class DataPeminjaman extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLookupAnggota;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton btnClearBuku;
+    private javax.swing.JButton btnClearSearch;
+    private javax.swing.JButton btnKembalikan;
+    private javax.swing.JButton btnLookAnggota;
+    private javax.swing.JButton btnLookBuku;
+    private javax.swing.JButton btnPinjam;
+    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -445,17 +436,17 @@ public class DataPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel menuDataAnggota;
     private javax.swing.JLabel menuDataBuku;
     private javax.swing.JLabel menuPeminjamanBuku;
-    private javax.swing.JTextField tbNamaPeminjam;
-    private javax.swing.JTextField tbNamaPetugas;
+    private javax.swing.JTextField tbDataAnggota;
+    private javax.swing.JTextField tbSearchNamaPeminjam;
+    private javax.swing.JTextField tbSearchNamaPetugas;
+    private javax.swing.JTable tblDetail;
     private javax.swing.JTable tblPeminjaman;
     // End of variables declaration//GEN-END:variables
 }

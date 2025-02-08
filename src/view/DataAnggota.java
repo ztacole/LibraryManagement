@@ -5,7 +5,9 @@
 package view;
 
 import data.dao.AnggotaDAO;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Anggota;
 
 /**
  *
@@ -16,7 +18,9 @@ public class DataAnggota extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    AnggotaDAO dao;
+    private int id = -1;
+    private String save = "Add";
+    private AnggotaDAO dao;
     
     public DataAnggota() {
         initComponents();
@@ -39,21 +43,23 @@ public class DataAnggota extends javax.swing.JFrame {
         menuDataBuku = new javax.swing.JLabel();
         menuPeminjamanBuku = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        btnDelete = new javax.swing.JButton();
+        tbAddEmail = new javax.swing.JTextField();
+        tbAddNoTelp = new javax.swing.JTextField();
+        tbAddNama = new javax.swing.JTextField();
+        btnClear = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAnggota = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        tbNama = new javax.swing.JTextField();
+        tbSearchNama = new javax.swing.JTextField();
+        btnClearSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 245, 250));
@@ -128,7 +134,12 @@ public class DataAnggota extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Tambah");
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("No Telp :");
 
@@ -136,17 +147,22 @@ public class DataAnggota extends javax.swing.JFrame {
 
         jLabel10.setText("Nama Anggota :");
 
-        jButton2.setText("look up");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel11.setText("Form Manipulasi Data Anggota");
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel11.setText("Form Tambah Anggota");
-
-        jButton3.setText("Hapus");
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,23 +175,20 @@ public class DataAnggota extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnClear)
+                                .addComponent(tbAddNoTelp, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tbAddEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tbAddNama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jButton1))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,20 +198,23 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jButton2))
+                    .addComponent(tbAddNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbAddEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(tbAddNoTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btnClear)
+                    .addComponent(btnSave)
+                    .addComponent(btnDelete))
+                .addContainerGap())
         );
 
         tblAnggota.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,6 +228,11 @@ public class DataAnggota extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAnggotaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAnggota);
 
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -221,14 +242,16 @@ public class DataAnggota extends javax.swing.JFrame {
 
         jLabel15.setText("Nama :");
 
-        tbNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbNamaActionPerformed(evt);
+        tbSearchNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbSearchNamaKeyPressed(evt);
             }
         });
-        tbNama.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tbNamaKeyTyped(evt);
+
+        btnClearSearch.setText("Clear Search");
+        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearSearchActionPerformed(evt);
             }
         });
 
@@ -241,20 +264,22 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
                     .addComponent(jLabel14)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addGap(29, 29, 29)
-                        .addComponent(tbNama)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(tbSearchNama)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnClearSearch))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,8 +288,9 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(tbNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(tbSearchNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClearSearch))
+                .addGap(5, 5, 5)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -273,25 +299,32 @@ public class DataAnggota extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillTable(){
-        String nama = tbNama.getText();
+        String nama = tbSearchNama.getText();
         tblAnggota.setModel(dao.getModel(nama));
     }
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void tbNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbNamaActionPerformed
+    private void clearAllField() {
+        tbAddNama.setText("");
+        tbAddEmail.setText("");
+        tbAddNoTelp.setText("");
+        
+        id = -1;
+        save = "Add";
         fillTable();
-    }//GEN-LAST:event_tbNamaActionPerformed
-
+    }
+    
+    private void showDataOnTextField() {
+        Anggota anggota = dao.findAnggotaByID(id);
+        tbAddNama.setText(anggota.getNama());
+        tbAddEmail.setText(anggota.getEmail());
+        tbAddNoTelp.setText(anggota.getNomorTelepon());
+        
+        save = "Edit";
+    }
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         fillTable();
     }//GEN-LAST:event_formWindowOpened
-
-    private void tbNamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbNamaKeyTyped
-        fillTable();
-    }//GEN-LAST:event_tbNamaKeyTyped
 
     private void menuDataAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDataAnggotaMouseClicked
         new DataAnggota().setVisible(true);
@@ -304,6 +337,61 @@ public class DataAnggota extends javax.swing.JFrame {
     private void menuPeminjamanBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanBukuMouseClicked
         new DataPeminjaman().setVisible(true);
     }//GEN-LAST:event_menuPeminjamanBukuMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clearAllField();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String nama = tbAddNama.getText();
+        String email = tbAddEmail.getText();
+        String noTelp = tbAddNoTelp.getText();
+        if (nama.trim().equals("") || email.trim().equals("") || noTelp.equals(null)) {
+            JOptionPane.showMessageDialog(null, "Input tidak valid, silahkan periksa kembali");
+            return;
+        }
+        Anggota anggota = new Anggota();
+        anggota.setId(id);
+        anggota.setNama(nama);
+        anggota.setEmail(email);
+        anggota.setNomorTelepon(noTelp);
+        
+        Boolean result;
+        
+        if (save.equals("Add")) result = dao.addAnggota(anggota);
+        else result = dao.editAnggota(anggota);
+        
+        if (result) JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        else JOptionPane.showMessageDialog(null, "Data gagal disimpan");
+        
+        clearAllField();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void tbSearchNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSearchNamaKeyPressed
+        fillTable();
+    }//GEN-LAST:event_tbSearchNamaKeyPressed
+
+    private void tblAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAnggotaMouseClicked
+        id = Integer.parseInt(tblAnggota.getValueAt(tblAnggota.getSelectedRow(), 0).toString());
+        showDataOnTextField();
+    }//GEN-LAST:event_tblAnggotaMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if (id == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih data terlebih dahulu");
+            return;
+        }
+        Boolean result = dao.deleteAnggota(id);
+        if (result) JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+        else JOptionPane.showMessageDialog(null, "Data gagal dihapus");
+        
+        clearAllField();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
+        tbSearchNama.setText("");
+        fillTable();
+    }//GEN-LAST:event_btnClearSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,9 +432,10 @@ public class DataAnggota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnClearSearch;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -359,12 +448,13 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel menuDataAnggota;
     private javax.swing.JLabel menuDataBuku;
     private javax.swing.JLabel menuPeminjamanBuku;
-    private javax.swing.JTextField tbNama;
+    private javax.swing.JTextField tbAddEmail;
+    private javax.swing.JTextField tbAddNama;
+    private javax.swing.JTextField tbAddNoTelp;
+    private javax.swing.JTextField tbSearchNama;
     private javax.swing.JTable tblAnggota;
     // End of variables declaration//GEN-END:variables
 }
