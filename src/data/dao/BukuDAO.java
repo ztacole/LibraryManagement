@@ -104,7 +104,12 @@ public class BukuDAO {
         }
 
         String[] columnName = {"ID", "Judul", "Penulis", "Tanggal Terbit", "Penerbit", "Stok"};
-        return new DefaultTableModel(dataTabel, columnName);
+        return new DefaultTableModel(dataTabel, columnName) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
     }
 
     public boolean addBuku(Buku buku) {

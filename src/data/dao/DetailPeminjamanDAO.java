@@ -51,7 +51,7 @@ public class DetailPeminjamanDAO {
         return listDetail;
     }
 
-    public DefaultTableModel getDetailPeminjamanModel(int idPeminjaman) {
+    public DefaultTableModel getModel(int idPeminjaman) {
         ArrayList<DetailPeminjaman> listDetail = getListDetailPeminjamanById(idPeminjaman);
         Object[][] dataTabel = new Object[listDetail.size()][2];
 
@@ -61,6 +61,11 @@ public class DetailPeminjamanDAO {
         }
 
         String[] columnNames = {"Judul Buku", "Jumlah"};
-        return new DefaultTableModel(dataTabel, columnNames);
+        return new DefaultTableModel(dataTabel, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
     }
 }

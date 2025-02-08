@@ -111,6 +111,11 @@ public class PeminjamanDAO {
         }
 
         String[] columnName = {"ID", "Nama Anggota", "Tanggal Pinjam", "Tanggal Kembali", "Petugas"};
-        return new DefaultTableModel(dataTabel, columnName);
+        return new DefaultTableModel(dataTabel, columnName) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
     }
 }

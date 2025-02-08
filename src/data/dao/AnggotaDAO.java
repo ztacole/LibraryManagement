@@ -95,7 +95,12 @@ public class AnggotaDAO {
         }
 
         String[] columnName = {"ID", "Nama", "Email", "Nomor Telepon"};
-        return new DefaultTableModel(dataTabel, columnName);
+        return new DefaultTableModel(dataTabel, columnName) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
     }
 
     public boolean deleteAnggota(int id) {
