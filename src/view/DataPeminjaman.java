@@ -4,11 +4,20 @@
  */
 package view;
 
+import core.Util;
 import data.dao.AnggotaDAO;
 import data.dao.BukuDAO;
 import data.dao.DetailPeminjamanDAO;
 import data.dao.PeminjamanDAO;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Buku;
+import model.DetailPeminjaman;
 import model.Peminjaman;
+import model.PinjamBuku;
 
 /**
  *
@@ -19,6 +28,10 @@ public class DataPeminjaman extends javax.swing.JFrame {
     /**
      * Creates new form dataPeminjaman
      */
+    public static int idAnggota = -1;
+    public static ArrayList<PinjamBuku> listPinjamBuku = new ArrayList();
+    public static Set<Integer> setId = new HashSet<>();
+    
     private int idPeminjaman = -1;
     private PeminjamanDAO peminjamanDao;
     private DetailPeminjamanDAO detailPeminjamanDao;
@@ -177,16 +190,41 @@ public class DataPeminjaman extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDetail);
 
         btnLookBuku.setText("LookUp");
+        btnLookBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLookBukuActionPerformed(evt);
+            }
+        });
 
         tbDataAnggota.setEditable(false);
 
         btnClearBuku.setText("Clear List Buku");
+        btnClearBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearBukuActionPerformed(evt);
+            }
+        });
 
         btnPinjam.setText("Pinjam");
+        btnPinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPinjamActionPerformed(evt);
+            }
+        });
 
         btnKembalikan.setText("Kembalikan");
+        btnKembalikan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembalikanActionPerformed(evt);
+            }
+        });
 
         btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -361,13 +399,64 @@ public class DataPeminjaman extends javax.swing.JFrame {
         btnLookBuku.setEnabled(false);
         btnPinjam.setEnabled(false);
         if (status.equals("Selesai")) btnKembalikan.setEnabled(false);
+        else btnKembalikan.setEnabled(true);
         tblDetail.setModel(detailPeminjamanDao.getModel(idPeminjaman));
         Peminjaman data = peminjamanDao.findPeminjamanByID(idPeminjaman);
         tbDataAnggota.setText(data.getNamaAnggota());
     }
     
+    public void fillBookOnList(){
+        btnClearBuku.setEnabled(true);
+        btnLookAnggota.setEnabled(true);
+        btnLookBuku.setEnabled(true);
+        btnPinjam.setEnabled(true);
+        btnKembalikan.setEnabled(false);
+        Object[][] dataTable = new Object[listPinjamBuku.size()][2];
+        
+        for (int i = 0; i < listPinjamBuku.size(); i++) {
+            dataTable[i][0] = listPinjamBuku.get(i).getJudulBuku();
+            dataTable[i][1] = listPinjamBuku.get(i).getJumlah();
+        }
+        
+        String[] colNames = {"Judul Buku", "Jumlah"};
+        
+        DefaultTableModel model = new DefaultTableModel(dataTable, colNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 1;
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                Buku buku = bukuDao.findBukuByJudul(getValueAt(row, 0).toString());
+                
+                try {
+                    int jumlah = Integer.parseInt(aValue.toString());
+                    
+                    if (jumlah < 0) {
+                        JOptionPane.showMessageDialog(null, "Jumlah tidak boleh kurang dari 0", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if (jumlah > buku.getStok()) {
+                        JOptionPane.showMessageDialog(null, "Jumlah tidak boleh lebih dari " + buku.getStok(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        super.setValueAt(jumlah, row, column);
+                        listPinjamBuku.get(row).setJumlah(jumlah);
+                    }
+                }
+                catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+        
+        tblDetail.setModel(model);
+    }
+    
     private void btnLookAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookAnggotaActionPerformed
-        // TODO add your handling code here:
+        LookupView look = new LookupView(this, true);
+        look.showDataAnggota();
+        look.setVisible(true);
     }//GEN-LAST:event_btnLookAnggotaActionPerformed
 
     private void tbSearchNamaPeminjamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSearchNamaPeminjamKeyTyped
@@ -398,7 +487,10 @@ public class DataPeminjaman extends javax.swing.JFrame {
         idPeminjaman = Integer.parseInt(tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 0).toString());
         Boolean tglKembali = tblPeminjaman.getValueAt(tblPeminjaman.getSelectedRow(), 3) != null;
         if (tglKembali) status = "Selesai";
-        else status = "Kembalikan";
+        else {
+            status = "Kembalikan";
+            idAnggota = peminjamanDao.findPeminjamanByID(idPeminjaman).getIdAnggota();
+        }
         fillTableDetail();
     }//GEN-LAST:event_tblPeminjamanMouseClicked
 
@@ -408,6 +500,65 @@ public class DataPeminjaman extends javax.swing.JFrame {
         fillTable();
     }//GEN-LAST:event_btnClearSearchActionPerformed
 
+    private void btnLookBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookBukuActionPerformed
+        LookupView look = new LookupView(this, true);
+        look.showDataBuku();
+        look.setVisible(true);
+        fillBookOnList();
+    }//GEN-LAST:event_btnLookBukuActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        idAnggota = -1;
+        tbDataAnggota.setText("");
+        status = "Pinjam";
+        clearBook();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnClearBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearBukuActionPerformed
+        clearBook();
+    }//GEN-LAST:event_btnClearBukuActionPerformed
+
+    private void btnPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPinjamActionPerformed
+        if (idAnggota == -1 || listPinjamBuku.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong");
+            return;
+        }
+        Peminjaman peminjaman = new Peminjaman();
+        peminjaman.setIdAnggota(idAnggota);
+        peminjaman.setIdPetugas(Util.petugas.getId());
+        
+        int id = peminjamanDao.addPeminjaman(peminjaman);
+        if (id == -1) return;
+        
+        for (int i = 0; i < listPinjamBuku.size(); i++) {
+            DetailPeminjaman detail = new DetailPeminjaman();
+            detail.setIdPeminjaman(id);
+            detail.setIdBuku(listPinjamBuku.get(i).getIdBuku());
+            detail.setJumlah(listPinjamBuku.get(i).getJumlah());
+            
+            if (!detailPeminjamanDao.addDetailPeminjaman(detail)) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        
+        clearBook();
+        idAnggota = -1;
+        tbDataAnggota.setText("");
+        fillTable();
+    }//GEN-LAST:event_btnPinjamActionPerformed
+
+    private void btnKembalikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembalikanActionPerformed
+        
+    }//GEN-LAST:event_btnKembalikanActionPerformed
+
+    private void clearBook() {
+        idPeminjaman = -1;
+        listPinjamBuku.removeAll(listPinjamBuku);
+        setId.removeAll(setId);
+        fillBookOnList();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -469,7 +620,7 @@ public class DataPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel menuDataAnggota;
     private javax.swing.JLabel menuDataBuku;
     private javax.swing.JLabel menuPeminjamanBuku;
-    private javax.swing.JTextField tbDataAnggota;
+    public static javax.swing.JTextField tbDataAnggota;
     private javax.swing.JTextField tbSearchNamaPeminjam;
     private javax.swing.JTextField tbSearchNamaPetugas;
     private javax.swing.JTable tblDetail;

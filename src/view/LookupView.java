@@ -5,6 +5,12 @@
  */
 package view;
 
+import data.dao.AnggotaDAO;
+import data.dao.BukuDAO;
+import javax.swing.JOptionPane;
+import model.Buku;
+import model.PinjamBuku;
+
 /**
  *
  * @author ahmad
@@ -29,17 +35,17 @@ public class LookupView extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblData = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(169, 222, 249));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("jLabel1");
+        lblTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -47,18 +53,18 @@ public class LookupView extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -69,7 +75,12 @@ public class LookupView extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDataMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblData);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,6 +104,40 @@ public class LookupView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
+        if (lblTitle.getText().equals("Data Anggota")) {
+            int id = Integer.parseInt(tblData.getValueAt(tblData.getSelectedRow(), 0).toString());
+            String nama = tblData.getValueAt(tblData.getSelectedRow(), 1).toString();
+            DataPeminjaman.tbDataAnggota.setText(nama);
+            DataPeminjaman.idAnggota = id;
+        }
+        else if (lblTitle.getText().equals("Data Buku")) {
+            int idBuku = Integer.parseInt(tblData.getValueAt(tblData.getSelectedRow(), 0).toString());
+            if (!DataPeminjaman.setId.add(idBuku)) {
+                JOptionPane.showMessageDialog(null, "Buku ini sudah ditambahkan");
+                return;
+            }
+            PinjamBuku pinjam = new PinjamBuku();
+            pinjam.setIdBuku(idBuku);
+            pinjam.setJumlah(1);
+            pinjam.setJudulBuku(new BukuDAO().findBukuByID(idBuku).getJudul());
+            DataPeminjaman.listPinjamBuku.add(pinjam);
+        }
+        dispose();
+    }//GEN-LAST:event_tblDataMouseClicked
+
+    public void showDataAnggota() {
+        AnggotaDAO dao = new AnggotaDAO();
+        tblData.setModel(dao.getModel(""));
+        lblTitle.setText("Data Anggota");
+    }
+    
+    public void showDataBuku() {
+        BukuDAO dao = new BukuDAO();
+        tblData.setModel(dao.getModel("", ""));
+        lblTitle.setText("Data Buku");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -136,9 +181,9 @@ public class LookupView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tblData;
     // End of variables declaration//GEN-END:variables
 }

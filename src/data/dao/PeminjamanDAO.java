@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +73,7 @@ public class PeminjamanDAO {
 
     public Peminjaman findPeminjamanByID(int id) {
         Peminjaman peminjaman = new Peminjaman();
-        String query = "SELECT p.id, a.nama AS nama_anggota, p.tanggal_peminjaman, p.tanggal_pengembalian, pet.nama AS petugas " +
+        String query = "SELECT p.id, a.id AS id_anggota, a.nama AS nama_anggota, p.tanggal_peminjaman, p.tanggal_pengembalian, pet.nama AS petugas " +
                        "FROM peminjaman p " +
                        "JOIN anggota a ON p.id_anggota = a.id " +
                        "JOIN petugas pet ON p.id_petugas = pet.id " +
@@ -83,6 +84,7 @@ public class PeminjamanDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     peminjaman.setId(rs.getInt("id"));
+                    peminjaman.setIdAnggota(rs.getInt("id_anggota"));
                     peminjaman.setNamaAnggota(rs.getString("nama_anggota"));
                     peminjaman.setTanggalPeminjaman(rs.getDate("tanggal_peminjaman"));
                     peminjaman.setTanggalPengembalian(rs.getDate("tanggal_pengembalian"));
@@ -117,5 +119,29 @@ public class PeminjamanDAO {
                 return false;
             }
         };
+    }
+    
+    public int addPeminjaman(Peminjaman peminjaman) {
+        String query = "INSERT INTO peminjaman(id_anggota, id_petugas) VALUES(?, ?)";
+        
+        try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, peminjaman.getIdAnggota());
+            ps.setInt(2, peminjaman.getIdPetugas());
+            
+            int result = ps.executeUpdate();
+            
+            if (result > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if(rs.next()) {
+                        return rs.getInt(1);
+                    }
+                    else return -1;
+                }
+            }
+            else return -1;
+        } catch (SQLException ex) {
+            Logger.getLogger(PeminjamanDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
     }
 }

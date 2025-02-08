@@ -89,6 +89,30 @@ public class BukuDAO {
         }
         return buku;
     }
+    
+    public Buku findBukuByJudul(String judul) {
+        Buku buku = new Buku();
+        String query = "select * from buku where judul = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setString(1, judul);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    buku.setId(rs.getInt("id"));
+                    buku.setJudul(rs.getString("judul"));
+                    buku.setPenulis(rs.getString("penulis"));
+                    buku.setTanggalTerbit(rs.getDate("tanggal_terbit"));
+                    buku.setPenerbit(rs.getString("penerbit"));
+                    buku.setStok(rs.getInt("stok"));
+                } else {
+                    buku = null;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BukuDAO.class.getName()).log(Level.SEVERE, null, ex);
+            buku = null;
+        }
+        return buku;
+    }
 
     public DefaultTableModel getModel(String judul, String penulis) {
         ArrayList<Buku> listBuku = getAllBuku(judul, penulis);
