@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author ahmad
+ * @author ahmad sat
  */
 public class Anggota {
     
